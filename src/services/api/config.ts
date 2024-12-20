@@ -1,5 +1,5 @@
 // API configuration
-export const API_BASE_URL = 'http://64.226.124.118:8080';
+export const API_BASE_URL = 'https://www.tt-sant-andreu.online/api';
 
 export const API_CONFIG = {
   headers: {
