@@ -3,9 +3,22 @@ import { Navigation, type View } from './components/Navigation';
 import { BookingsView } from './components/BookingsView';
 import { CompetitionView } from './components/CompetitionView';
 import { ThemeToggle } from './components/ThemeToggle';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
   const [currentView, setCurrentView] = useState<View>('bookings');
+  const { isDark } = useTheme();
+
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case 'bookings':
+        return <BookingsView />;
+      case 'competition':
+        return <CompetitionView />;
+      default:
+        return <BookingsView />;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
@@ -14,7 +27,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <img 
-                src="/logo.png" 
+                src={isDark ? "/logo-blanco.png" : "/logo.png"} 
                 alt="TT Sant Andreu Logo" 
                 className="h-12 w-12 object-contain"
               />
@@ -30,7 +43,7 @@ function App() {
       <Navigation currentView={currentView} onViewChange={setCurrentView} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentView === 'bookings' ? <BookingsView /> : <CompetitionView />}
+        {renderCurrentView()}
       </main>
     </div>
   );
